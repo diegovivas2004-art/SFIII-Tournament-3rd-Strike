@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SFIII Tournament</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <img src="assets/logo.webp" alt="Street Fighter III 3rd Strike">
+        <div class="header-text">
+            <h1>3rd Strike Tournament</h1>
+            <p>Bracket Manager</p>
+        </div>
+    </header>
+
+    <div id="guardado"></div>
+
+    <main class="contenedor">
+
+        <section>
+            <div class="seccion-label">Configuración</div>
+
+            <div class="panel">
+                <input id="nombreJugador" type="text" placeholder="Nombre del jugador">
+                <div class="input-numero">
+                    <input type="number" id="maximo" placeholder="Máx. jugadores" min="2" step="1">
+                    <div class="spinner-numero">
+                        <button type="button" tabindex="-1" onclick="cambiarMaximo(1)">▲</button>
+                        <button type="button" tabindex="-1" onclick="cambiarMaximo(-1)">▼</button>
+                    </div>
+                </div>
+                <select id="formato">
+                    <option value="2">FT2</option>
+                    <option value="3">FT3</option>
+                </select>
+                <select id="modo">
+                    <option value="simple">Eliminación Simple</option>
+                    <option value="double">Doble Eliminación</option>
+                </select>
+                <button class="btn-primario" onclick="agregarJugador()">Agregar</button>
+            </div>
+
+            <div class="seccion-label">Jugadores</div>
+            <div id="contador"></div>
+            <ul id="lista"></ul>
+
+            <div class="acciones">
+                <button class="btn-acento" id="btnGenerar" onclick="generarTorneo()">Generar Torneo</button>
+                <button class="btn-secundario" id="btnCancelarTorneo" onclick="cancelarTorneo()" style="display:none;">Cancelar Torneo</button>
+                <button class="btn-peligro" onclick="reiniciarTodo()">Reiniciar</button>
+                <button class="btn-secundario" onclick="exportarRespaldo()">
+                    <span class="icono-btn">⭳</span> Exportar respaldo
+                </button>
+                <div class="grupo-archivo">
+                    <label class="btn-secundario btn-archivo" for="importarInput">
+                        <span class="icono-btn">⭱</span> Importar respaldo
+                    </label>
+                    <input type="file" id="importarInput" accept="application/json" onchange="importarRespaldo(event)">
+                    <span class="nombre-archivo" id="nombreArchivo">Ningún archivo seleccionado</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="seccion-label">Bracket</div>
+        <div id="estadoTorneo"></div>
+        <div id="contenedorBracket">
+            <svg id="lineas"></svg>
+            <div id="bracket"></div>
+        </div>
+
+        <div class="seccion-label">Reglamento</div>
+
+        <div class="reglas">
+
+            <h3>1. Preparación personal y material</h3>
+            <ul>
+                <li>Llega con anticipación para evitar retrasos en el torneo.</li>
+                <li>Lleva tu propio equipo: control (PS5, Xbox, palanca Arcade, Hitbox o teclado) y el cable
+                    correspondiente.</li>
+                <li>Revisa tus botones antes de empezar tu set para asegurarte de que todo funcione correctamente.</li>
+            </ul>
+            <h3>2. Higiene y consideración</h3>
+            <ul>
+                <li>Por respeto a todos los participantes y debido a que el torneo se realizará en un espacio cerrado,
+                    mantén una buena higiene personal.</li>
+                <li>Se recomienda asistir con manos limpias y usar desodorante para mantener un ambiente cómodo para
+                    todos.</li>
+                <li>Evita olores fuertes (perfumes excesivos, comida o cualquier otro olor que pueda incomodar a otros
+                    jugadores).</li>
+                <li>No comas ni bebas cerca de las estaciones de juego para evitar daños al equipo.</li>
+                <li>Mantén limpia tu área y recoge cualquier residuo al terminar.</li>
+            </ul>
+            <h3>3. Deportividad y conducta</h3>
+            <ul>
+                <li>Al terminar tu partida, desconecta inmediatamente tu control (Bluetooth o alámbrico) para evitar
+                    interferencias.</li>
+                <li>Sé respetuoso con tu oponente antes, durante y después del set.</li>
+                <li>Mantén la calma y disfruta la experiencia competitiva.</li>
+                <li>No pauses durante la partida.</li>
+                <li>Reporta el resultado al organizador.</li>
+            </ul>
+            <h3>4. Respeto al formato del torneo</h3>
+            <ul>
+                <li>Si pierdes una partida puedes cambiar de personaje; el ganador deberá mantener el mismo.</li>
+                <li>Permanece atento a los llamados del organizador y evita retrasar el torneo.</li>
+
+            </ul>
+        </div>
+
+        <div class="seccion-label">Historial de Campeones</div>
+        <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
+            <button class="btn-peligro" onclick="borrarHistorial()">Borrar historial</button>
+        </div>
+        <div class="historial" id="historial"></div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
